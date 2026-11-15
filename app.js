@@ -796,7 +796,7 @@ function wireEvents() {
   document.querySelector("#sign-in-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     const fields = new FormData(event.currentTarget);
-    const button = event.currentTarget.querySelector('button[type="submit"]');
+    const button = form.querySelector('button[type="submit"]');
     button.disabled = true;
     setFormMessage("#sign-in-error", "", false);
     setFormMessage("#auth-feedback", "", false);
@@ -815,8 +815,9 @@ function wireEvents() {
 
   document.querySelector("#register-form").addEventListener("submit", async (event) => {
     event.preventDefault();
-    const fields = new FormData(event.currentTarget);
-    const button = event.currentTarget.querySelector('button[type="submit"]');
+    const form = event.currentTarget;
+    const fields = new FormData(form);
+    const button = form.querySelector('button[type="submit"]');
     const password = document.querySelector("#register-password");
     const confirmPassword = document.querySelector("#register-confirm-password");
     confirmPassword.setCustomValidity(
@@ -852,7 +853,7 @@ function wireEvents() {
       } else {
         setFormMessage("#auth-feedback", "Check your email and open the confirmation link to finish creating your account.");
       }
-      event.currentTarget.reset();
+      form.reset();
       confirmPassword.setCustomValidity("");
     } catch (error) {
       suppressSignupSessionId = null;
